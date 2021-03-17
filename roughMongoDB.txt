@@ -1,0 +1,387 @@
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use courses
+switched to db courses
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> db.courses.insertOne({name:"ReactJS", type:"Front End", videos:80, active:true})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6050b628cd096ed7b89874b9")
+}
+> show db
+uncaught exception: Error: don't know how to show [db] :
+shellHelper.show@src/mongo/shell/utils.js:1191:11
+shellHelper@src/mongo/shell/utils.js:819:15
+@(shellhelp2):1:1
+> show dbs
+admin    0.000GB
+config   0.000GB
+courses  0.000GB
+local    0.000GB
+> db
+courses
+> show collections
+courses
+> db.courses.find()
+{ "_id" : ObjectId("6050b628cd096ed7b89874b9"), "name" : "ReactJS", "type" : "Front End", "videos" : 80, "active" : true }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+> db.courses.insertMany({name:"ReactJS", type:"Front End", videos:80, active:true},)
+un
+> db.courses.insertMany({name:"ReactJS", type:"Front End", videos:80, active:true},{name:"MongoDB", type:"DataBase", videos:})
+> db.courses.insertMany({name:"ReactJS", type:"Front End", videos:80, active:true},{name:"MongoDB", type:"DataBase", videos:})
+> db.courses.insertMany({name:"ReactJS", type:"Front End", videos:80, active:true},{name:"MongoDB", type:"DataBase", videos})
+>
+> db.courses.insertMany({name:"NodeJS", type:"Back End", videos:30, active:true},{name:"MongoDB", type:"DataBase", videos:40, active:true}, {name:"ExpressJS", type:"Framework", videos: 15, active:true})
+uncaught exception: TypeError: documents.map is not a function :
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:307:17
+@(shell):1:1
+> db.courses.insertMany([{name:"NodeJS", type:"Back End", videos:30, active:true},{name:"MongoDB", type:"DataBase", videos:40, active:true}, {name:"ExpressJS", type:"Framework", videos: 15, active:true}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6050d30acd096ed7b89874ba"),
+                ObjectId("6050d30acd096ed7b89874bb"),
+                ObjectId("6050d30acd096ed7b89874bc")
+        ]
+}
+> show collections
+courses
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+> db.courses.find()
+{ "_id" : ObjectId("6050b628cd096ed7b89874b9"), "name" : "ReactJS", "type" : "Front End", "videos" : 80, "active" : true }
+{ "_id" : ObjectId("6050d30acd096ed7b89874ba"), "name" : "NodeJS", "type" : "Back End", "videos" : 30, "active" : true }
+{ "_id" : ObjectId("6050d30acd096ed7b89874bb"), "name" : "MongoDB", "type" : "DataBase", "videos" : 40, "active" : true }
+{ "_id" : ObjectId("6050d30acd096ed7b89874bc"), "name" : "ExpressJS", "type" : "Framework", "videos" : 15, "active" : true }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+> db.courses.find({name:"MongoDB"}).pretty()
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+> db.courses.find({name:"MongoDB"}, {name:1}).pretty()
+{ "_id" : ObjectId("6050d30acd096ed7b89874bb"), "name" : "MongoDB" }
+> db.courses.find({name:"MongoDB"}, {_id:0 , name:1}).pretty()
+{ "name" : "MongoDB" }
+> db.courses.find({active:true}).pretty().limit(1)
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+> db.courses.findOne({active:true})
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+> db.courses.find({active:true}).pretty().limit(1).skip(1)
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+> db.courses.insertOne({name:"JavaScript", type:"Front End", videos:150, active:true})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6050de6acd096ed7b89874bd")
+}
+> db.courses.updateOne({name:"JavaScript"}, {$set: {type: "Full Stack"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050de6acd096ed7b89874bd"),
+        "name" : "JavaScript",
+        "type" : "Full Stack",
+        "videos" : 150,
+        "active" : true
+}
+> db.courses.updateOne({name:"JavaScript"}, {$set: {type: "Front End"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050de6acd096ed7b89874bd"),
+        "name" : "JavaScript",
+        "type" : "Front End",
+        "videos" : 150,
+        "active" : true
+}
+> db.courses.updateOne({type:"Front End"}, {$set: {active:false}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.courses.updateOne({type:"Front End"}, {$set: {active:true}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050de6acd096ed7b89874bd"),
+        "name" : "JavaScript",
+        "type" : "Front End",
+        "videos" : 150,
+        "active" : true
+}
+> db.courses.updateMany({type:"Front End"}, {$set: {active:false}})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050de6acd096ed7b89874bd"),
+        "name" : "JavaScript",
+        "type" : "Front End",
+        "videos" : 150,
+        "active" : false
+}
+> db.courses.updateOne({name:"JavaScript"}, {$set: {type: "Full Stack"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050de6acd096ed7b89874bd"),
+        "name" : "JavaScript",
+        "type" : "Full Stack",
+        "videos" : 150,
+        "active" : false
+}
+> db.courses.deleteMany({type: "Full Stack"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.courses.find().pretty()
+{
+        "_id" : ObjectId("6050b628cd096ed7b89874b9"),
+        "name" : "ReactJS",
+        "type" : "Front End",
+        "videos" : 80,
+        "active" : false
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874ba"),
+        "name" : "NodeJS",
+        "type" : "Back End",
+        "videos" : 30,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bb"),
+        "name" : "MongoDB",
+        "type" : "DataBase",
+        "videos" : 40,
+        "active" : true
+}
+{
+        "_id" : ObjectId("6050d30acd096ed7b89874bc"),
+        "name" : "ExpressJS",
+        "type" : "Framework",
+        "videos" : 15,
+        "active" : true
+}
